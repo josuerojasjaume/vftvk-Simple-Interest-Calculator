@@ -1,26 +1,31 @@
-const btn = document.querySelector('button')
-const d = new Date()
+function updateRate() {
+    var slider = document.getElementById("rate");
+    var output = document.getElementById("rate_val");
+    output.innerHTML = slider.value; // Display the default slider value
 
-btn.addEventListener('click', function () {
-  let amount = document.getElementById('principal').value
-  if (Number(amount) === 0) {
-    alert('please enter a positive number')
-    document.getElementById('principal').focus()
-    return
-  }
-  if (Number(amount) < 0) {
-    alert('enter a positive number')
-    document.getElementById('principal').focus()
-    return
-  }
-  let interestInput = document.getElementById('interestInput').value
-  let years = document.getElementById('years').value
-  let result = amount * (interestInput / 100) * years
-  let updatedyears = d.getFullYear() + Number(years)
-  const container1 = document.getElementById('container1')
-  document.getElementById('principal_output').innerHTML = amount
-  document.getElementById('interest_output').innerHTML = interestInput
-  document.getElementById('amount_output').innerHTML = result
-  document.getElementById('year_output').innerHTML = updatedyears
-  container1.classList.remove('hidden')
-})
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() 
+    {
+        output.innerHTML = this.value;
+    }  
+}
+
+function compute()
+{
+    var principal = document.getElementById("principal").value;
+    var rate = document.getElementById("rate").value;
+    var years = document.getElementById("years").value;
+    var interest = principal * years * rate /100;
+    var year = new Date().getFullYear()+parseInt(years);
+    document.getElementById("result").innerHTML="If you deposit " + "<span class='highlight'>" + principal + "</span>."  + ", <br> at an interest rate of "+ "<span class='highlight'>" + rate + "</span>%." + "<br> You will receive an amount of " + "<span class='highlight'>" + interest + "</span>" + ", <br> in the year " + "<span class='highlight'>" + year + "</span>";
+    
+}
+
+function valid() {
+    if (principal.value < 1) {
+        alert("Please enter a number which is a valid one(positive number)");
+        principal.focus();
+    } else {
+        compute();
+    }
+}
