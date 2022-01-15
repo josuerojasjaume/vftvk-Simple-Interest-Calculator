@@ -1,12 +1,26 @@
-function compute()
-{
-    p = document.getElementById("principal").value;
-    
-}
-var principal = document.getElementById("principal").value;
-var rate = document.getElementById("rate").value;
-var years = document.getElementById("years").value;
-var interest = principal * years * rate /100;
-var year = new Date().getFullYear()+parseInt(years);
-function updateRate() 
-{var rateval = document.getElementById("rate").value; document.getElementById("rate_val").innerText=rateval;}
+const btn = document.querySelector('button')
+const d = new Date()
+
+btn.addEventListener('click', function () {
+  let amount = document.getElementById('principal').value
+  if (Number(amount) === 0) {
+    alert('please enter a positive number')
+    document.getElementById('principal').focus()
+    return
+  }
+  if (Number(amount) < 0) {
+    alert('enter a positive number')
+    document.getElementById('principal').focus()
+    return
+  }
+  let interestInput = document.getElementById('interestInput').value
+  let years = document.getElementById('years').value
+  let result = amount * (interestInput / 100) * years
+  let updatedyears = d.getFullYear() + Number(years)
+  const container1 = document.getElementById('container1')
+  document.getElementById('principal_output').innerHTML = amount
+  document.getElementById('interest_output').innerHTML = interestInput
+  document.getElementById('amount_output').innerHTML = result
+  document.getElementById('year_output').innerHTML = updatedyears
+  container1.classList.remove('hidden')
+})
